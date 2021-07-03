@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Angel's Fruit Market</title>
+  <!-- boostrap CSS-->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <!-- <link rel="stylesheet" href="../static/styles.css"> -->
+  <!-- What I commented out is connected to our html, but the detail page is so weird. -->
+  <!-- Original one is not connected. I tried to change some css but it didn't work. -->
+  <!-- So, I just used inline style at the moment. But, I think we need to figure out the reason. -->
+
+  <!-- Google font -->
+  <link href="https://fonts.googleapis.com/css2?family=Courgette&family=Kalam&family=Noto+Sans+JP&display=swap"
+    rel="stylesheet">
+  <!-- font awesome -->
+  <script src="https://kit.fontawesome.com/d333ce52ee.js" crossorigin="anonymous"></script>
+
+  <!-- bootstrap -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+    crossorigin="anonymous"></script>
+      <!-- My own CSS -->
+      <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+  <!-- <style>
+    #footer{
+      color:white;
+    }
+   
+  </style> -->
+  <header id="home">
+    <div class="container">
+      <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <a class="navbar-brand" href="{{ url_for('main.index') }}" style="color: rgba(255, 255, 255, 0.774);">Angel's Fruit Market</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse " id="navbarNav">
+          <form class="form-inline my-2 my-lg-0 ml-auto">
+          </form>
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link mx-3" href="{{ url_for('main.index') }}" style="color:white;">Home </a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false" style="color:white;">
+                Category
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{{ url_for('main.index',_anchor='category')}}">Apple</a>
+                <a class="dropdown-item" href="{{ url_for('main.index',_anchor='banana')}}">Banana</a>
+                <a class="dropdown-item" href="{{ url_for('main.index',_anchor='orange')}}">Orange</a>
+              </div>
+            <li class="nav-item">
+              <a class="nav-link  mx-3" href="{{url_for('main.order')}}" style="color:white;">Basket</a>
+            </li>
+            <form class="form-inline" action="{{url_for('main.search')}}">
+              <input class="form-control mr-sm-2" type="search" placeholder="Search" name="search">
+              <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+            </form>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <p></p>
+    <div class="alert alert-success" role="alert">
+      {% for message in messages %}
+      {{ message }}
+      {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+  </header>
+
+  <main>
+    {% block head %}{% endblock %}
+    {% block main %}{% endblock %}
+  </main>
+
+  <footer id="footer">
+    <div class="footer-top">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-4 col-lg-4 footer-ourstory text-left">
+            <h3 style="color: white; font-size:larger;">Our story</h3>
+            <p style="color: rgba(255, 255, 255, 0.774); font-size:medium;">
+              We are a young company always looking for new and creative ideas to help you with our products in your
+              everyday food.
+            </p>
+          </div>
+          <div class="col-md-4 col-lg-4 footer-connect text-left">
+            <h3 style="color: white; font-size:larger;">Connect</h3>
+            <p style="color:rgba(255, 255, 255, 0.774); font-size:medium;"><i class="fas fa-map-marker-alt"></i> Via 10 kelvin st, QLD 4053 Australia</p>
+            <p  style="color: rgba(255, 255, 255, 0.774); font-size:medium;"><i class="fas fa-phone"></i> Phone: (+62) 433 128 347</p>
+            <p  style="color:rgba(255, 255, 255, 0.774); font-size:medium;"><i class="fas fa-envelope"></i> Email: angelsmarket@qut.edu.au</p>
+          </div>
+          <div class="col-md-4 col-lg-3 footer-sns">
+            <h3 style="color: white; font-size:larger;">Follow us</h3>
+            <div class="sns-icons">
+              <p>
+                <i class="footer-logo fab fa-twitter" ></i>
+                <i class="footer-logo fab fa-facebook-f" ></i>
+                <i class="footer-logo fab fa-instagram" ></i>
+                <i class="footer-logo fas fa-envelope" ></i>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container">
+        <div class="footer-copyright">
+          <p>Copyright &copy; Angel's Fruit Market</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- <section id="footer">
+    <div class="container-fluid">
+      <i class="footer-logo fab fa-twitter"></i>
+      <i class="footer-logo fab fa-facebook-f"></i>
+      <i class="footer-logo fab fa-instagram"></i>
+      <i class="footer-logo fas fa-envelope"></i>
+      <p>© Copyright 2020 Angel's Fruit Market</p>
+    </div>
+  </section> -->
+
+</body>
+
+</html>

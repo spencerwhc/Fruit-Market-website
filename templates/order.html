@@ -1,0 +1,65 @@
+{% extends 'base.html'%}
+
+
+{% block main %}
+<style>
+    h3,
+    h4,
+    h5 {
+        color: #293e32;
+    }
+
+    .card-body {
+        text-align: left;
+    }
+    .basket-summary{
+        text-align: right;
+    }
+</style>
+    <section class="color-section">
+        <div class="container Basket-Content">
+            <div class="row co-12 d-flex mt-2 mb-2">
+                <h3>Shopping Basket</h3>
+            </div>
+            <div class="row">
+                <div class="card container">
+                    {% for fruit in order.fruits %}
+                    <div class="card-body basket-item">
+                        <div class="row">
+                            <div class="col-2">
+                                <img class="img-thumbnail" src="{{url_for('static', filename='images/'+fruit.image)}}">
+                            </div>
+                            <div class="col-7">
+                                <!-- Item detail -->
+                                <h5>{{fruit.name}}</h5>
+                                <p class="card-text">{{ "$%.2f"|format(fruit.price) }} / each</p>
+                            </div>
+                            <div class="col-1">
+                                <form method="POST" action='{{ url_for("main.deletebasketitem")}}'>
+                                    <input type="hidden" id="id" name="id" value="{{fruit.id}}">
+                                    <input type="submit" value="Delete" class="btn btn-dark mb-3">
+                                </form>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                    {% endfor %}
+                    <div class="basket-summary">
+                        <h5 class="mt-2">Subtotal: {{ "$%.2f"|format(totalprice) }} </h5>
+                        <h5>Shipping: Free</h5>
+                        <a href="{{ url_for('main.checkout')}}" class="btn btn-dark">Checkout</a>
+                    </div>
+                  
+                </div>
+            </div>
+            <section>
+                <div class="row co-12 d-flex mt-2 mb-4">
+                    <a href="{{ url_for('main.index',_anchor='category')}}" class="btn btn-dark mr-4">Continue Shopping</a>
+                    <a href="{{ url_for('main.deletebasket') }}" class="btn btn-dark">Empty Basket</a>
+                </div>
+            </section>
+        </div>
+    </section>
+  
+{% endblock %}
+

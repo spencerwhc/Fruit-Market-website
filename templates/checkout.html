@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block main %}
+<style>
+    section {
+        color: black;
+    }
+</style>
+
+<section>
+    <div class="container" style="padding-top:50px;">
+        <div class="row">
+            <div class="col-6">
+                <h1 class="text-center">Checkout</h1>
+                <p class="text-center">Please enter your personal detail to finish checkout</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6 text-left form">
+                {{wtf.quick_form(form)}}
+            </div>
+            <div class="col-6">
+                <div class='envy-apple-card' style="color: #ff974f; background-color: #293e32;">
+                    <h3>Summary</h3>
+                    <hr style="border-color: #ff974f;">
+                    <h5 class="mt-2">Subtotal: <span style="float:right;">{{ "$%.2f"|format(totalprice) }}</span></h5>
+                    <h5>Shipping: <span style="float:right;">Free</span></h5>
+                    <hr style="border-color: #ff974f;">
+                    <h5 class="mt-2">Total: <span style="float:right;">{{ "$%.2f"|format(totalprice) }}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

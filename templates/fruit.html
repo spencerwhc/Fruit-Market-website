@@ -1,0 +1,49 @@
+{% extends 'base.html'%}
+
+{% block main %}
+{% for fruit in fruits%}
+<style>
+  section{
+      background-color: white;
+  }
+</style>
+
+<section id="envy-apple">
+
+        <div class="container" style="border-bottom: groove;">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb ">
+                  <li class="breadcrumb-item"><a href="{{ url_for('main.index')}}">Home</a></li>
+                  <li class="breadcrumb-item"><a href="{{ url_for('main.index',_anchor=''+fruit.Category.name)}}">{{fruit.Category.name}}</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">{{fruit.name}}</li>
+                </ol>
+              </nav>
+
+            <div class="row">
+                <div class=" col-md-6 col-sm-12 ">
+                    <img src="{{url_for('static', filename='images/'+fruit.image)}}" alt="envy apple " class="jutify-content-center img-fluid">
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="envy-apple-card" style="height: auto;">
+                        <h2 style="padding-top: 35px;">{{fruit.name}}</h2>
+                        <h4>{{ "$%.2f"|format(fruit.price) }}/ each</h4>
+                        <form action="{{ url_for('main.order') }}">
+                            <input type="hidden" id="fruit_id" name="fruit_id" value="{{ fruit.id }}">
+                            <input class="btn btn-dark" type="submit" value="Add to Basket">
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="description text-left">
+                <h3>Product Detail</h3>
+                <p>{{fruit.description}}</p>
+                <li><strong>Seasonality:</strong> {{fruit.seasonality}}</li>
+                <li><strong>Taste:</strong> {{fruit.taste}}</li>
+                <img src="{{url_for('static', filename='images/'+fruit.made_from)}}" alt="">
+            </div>
+        </div>
+
+  </section>
+
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,113 @@
+{% extends 'base.html'%}
+
+
+{% block main %}
+<style>
+  .badge{
+    height: 50px;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 700;
+    color:white;
+  }
+</style>
+<section id="introduction">
+  <div class="container-fluid">
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner" role="listbox">
+        <div class="carousel-item active">
+          <img class="d-block w-80 img-fluid" src="{{url_for('static', filename='images/carosel-fruit.png')}}"
+            alt="First slide">
+          <div class="carousel-caption d-none d-md-block centered">
+            <h1 style="text-shadow: 2px 2px 5px white;" >We Are Family Own Small Business</h1>
+          </div>
+        </div>
+        <div class="carousel-item ">
+          <img class="d-block w-100 img-fluid" src="{{url_for('static', filename='images/carosel-farm.png')}}"
+            alt="Second slide">
+          <div class="carousel-caption d-none d-md-block centered">
+            <h1 style=" text-shadow: 2px 2px 5px white;">We Love to Pick the Best Fruit For You</h1>
+
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img class="d-block w-100 img-fluid" src="{{url_for('static', filename='images/carosel-kangaroo.png')}}"
+            alt="Second slide">
+          <div class="carousel-caption d-none d-md-block centered">
+            <h1 style=" text-shadow: 2px 2px 5px white;">We Support Australia Grown Product</h1>
+
+          </div>
+        </div>
+      </div>
+      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+  </div>
+
+</section>
+
+<section id="feature">
+  <div class="container-fluid color-section">
+    <div class="row">
+      <div class="col-lg-4 features-box ">
+        <i class="fas fa-shipping-fast fa-4x"></i>
+        <h3 class="feature-title">Free delivery</h3>
+        <p class="features-description">Deliveries are available on Monday and Friday</p>
+      </div>
+      <div class="col-lg-4 features-box">
+        <i class="fas fa-seedling fa-4x"></i>
+        <h3 class="feature-title">100% Australian grown</h3>
+        <p class="features-description">We have a great relationship with local farmers</p>
+      </div>
+      <div class="col-lg-4 features-box">
+        <i class="fas fa-heart fa-4x icon"></i>
+        <h3 class="feature-title">Freshly pick everyday</h3>
+        <p class="features-description">All our fruit are freshly pick per your order</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="category">
+  <div class="container-fluid color-section">
+    <h1>What's in our store</h1>
+    {% for category in categories%}
+    <div class="category-info">
+      <article>
+        <div class="category-head" id="{{category.name}}">
+          <h2>{{category.name}}</h2>
+          <p>{{category.description}}</p>
+        </div>
+        <hr>
+        <div class="row fruit-item-list">
+          {% for fruit in fruits%}
+          {% if fruit.category_id == category.id%}
+          <div class="fruit-column col-lg-4 col-md-6">
+            <div class="card" style="padding-bottom: 15px;">
+              {% if fruit.seasonality == "All Year Round"%}
+              <span class="badge badge-success"><h2>In Season</h2></span>
+              {% endif %}
+              <a href="{{ url_for('main.fruitDetail', fruitid=fruit.id)}}"><img class="card-img-top img-fluid"
+                  src="{{url_for('static', filename='images/'+fruit.image)}}" alt="card image"></a>
+              <h4 class="card-title">{{fruit.name}}</h4>
+              <h6 class="card-subtitle mb-2 text-muted">{{ "$%.2f"|format(fruit.price) }} /each</h6>
+              <form action="{{ url_for('main.order') }}">
+                <input type="hidden" id="fruit_id" name="fruit_id" value="{{ fruit.id }}">
+                <input class="btn btn-dark" type="submit" value="Add to Basket">
+            </form>
+            </div>
+          </div>
+          {% endif %}
+          {% endfor %}
+        </div>
+      </article>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
