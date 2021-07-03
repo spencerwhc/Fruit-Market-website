@@ -4,10 +4,10 @@
 https://youtu.be/zMQsmvnkHHI
 
 We have develop a ecommerce store web application that have implements the following technologies:
-•	HTML & Bootstrap CSS
-•	Flask Templates
-•	Flask WTForms
-•	Flask SQLAlchemy
+- HTML & Bootstrap CSS
+- Flask Templates
+- Flask WTForms
+- Flask SQLAlchemy
 
 The goal to achieve in this website is the following (using SQLite):
 •	Customer landing page (to search/filter for products and add to a shopping basket)
